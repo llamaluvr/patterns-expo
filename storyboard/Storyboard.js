@@ -13,7 +13,7 @@ function HomeScreen() {
 
 const Stack = createStackNavigator();
 
-function App() {
+function Storyboard() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
