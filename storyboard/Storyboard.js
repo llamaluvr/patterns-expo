@@ -1,24 +1,17 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import TagListScreen from './TagListScreen';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
+import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import EventsListScreen from "./EventsListScreen";
 
 const Stack = createStackNavigator();
 
-function Storyboard() {
+function Storyboard({ tags, events, dispatch }) {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Home" component={TagListScreen} />
+        <Stack.Screen name="Events">
+          {() => <EventsListScreen tags={tags} events={events} dispatch={dispatch} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

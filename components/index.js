@@ -1,3 +1,4 @@
-import TagList from './TagList';
+import EventsList from './EventsList';
+import TagAdder from './TagAdder';
 
-export { TagList };
+export { EventsList, TagAdder };

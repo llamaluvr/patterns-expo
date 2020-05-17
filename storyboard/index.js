@@ -1,3 +1,3 @@
-import Storyboard from './Storyboard';
+import StoryboardDataWrapper from './StoryboardDataWrapper';
 
-export default Storyboard;
+export default StoryboardDataWrapper;
