@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { useThemeContext } from '../config/ThemeContext'; 
 
 function TagList({ tags, onPressAddEvent }) {
+  const theme = useThemeContext();
+  
   return (
     <View
       style={{
@@ -35,7 +38,7 @@ function TagList({ tags, onPressAddEvent }) {
               </Text>
             </View>
           </TouchableWithoutFeedback>
-          <Text>{tag.name}</Text>
+          <Text style={theme.textStyles.standard.dark}>{tag.name}</Text>
         </View>
       ))}
     </View>
@@ -45,6 +48,8 @@ function TagList({ tags, onPressAddEvent }) {
 
 function TagAdder({ tags, onPressAddEvent }) {
   const [isTrayOpen, setIsTrayOpen] = useState(false);
+  const theme = useThemeContext();
+
   return (
     <View
       style={{
@@ -53,8 +58,8 @@ function TagAdder({ tags, onPressAddEvent }) {
         right: 0,
         bottom: 0,
         borderTopWidth: 1,
-        borderTopColor: "black",
-        backgroundColor: "white",
+        borderTopColor: theme.colors.darkText,
+        backgroundColor: theme.colors.bg0,
       }}
     >
       <View
@@ -78,14 +83,14 @@ function TagAdder({ tags, onPressAddEvent }) {
               height: 50,
               width: 50,
               borderRadius: 25,
-              borderColor: "black",
+              borderColor: theme.colors.darkText,
               borderWidth: 1,
               alignItems: "center",
               justifyContent: "center",
             }}
           >
             <View>
-              <Text style={{ fontSize: 30 }}>{isTrayOpen ? "x" : "+"}</Text>
+              <Text style={{ fontSize: 30, color: theme.colors.darkText }}>{isTrayOpen ? "x" : "+"}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

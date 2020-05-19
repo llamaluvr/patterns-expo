@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DateTime } from 'luxon';
 import { View, Text } from 'react-native';
+import { useThemeContext } from '../config/ThemeContext'; 
 
 export interface IEvent {
   id: any;
@@ -14,11 +15,13 @@ export interface Props {
 }
 
 function Event({ event, tag }: Props) {
+  const theme = useThemeContext();
+
   return (
     <View style={{ padding: 15, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-      <Text>{DateTime.fromJSDate(event.date).toLocaleString(DateTime.TIME_SIMPLE)}</Text>
+      <Text style={theme.textStyles.standard.dark}>{DateTime.fromJSDate(event.date).toLocaleString(DateTime.TIME_SIMPLE)}</Text>
       <View style={{ height: 20, width: 20, borderRadius: 10, backgroundColor: tag.color, marginHorizontal: 10 }} />
-      <Text>{tag.name}</Text>
+      <Text style={theme.textStyles.standard.dark}>{tag.name}</Text>
     </View>
   )
 }

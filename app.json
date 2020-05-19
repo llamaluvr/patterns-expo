@@ -3,6 +3,7 @@
     "name": "Blank Template (TypeScript)",
     "slug": "patterns-rn",
     "privacy": "public",
+    "userInterfaceStyle": "automatic",
     "platforms": [
       "ios",
       "android",
