@@ -12,7 +12,7 @@ export interface Props {
 function EventsList({ events, tags }: Props) {
   const theme = useThemeContext();
   return (
-    <View style={{ flex: 1, paddingBottom: 150, backgroundColor: theme.colors.bg0 }}>
+    <View style={{ flex: 1, paddingBottom: 120, backgroundColor: theme.colors.bg0 }}>
       <SectionList
         sections={[
           { data: sortBy(events, e => e.date).reverse(), renderItem: ({ item }) => <Event event={item} tag={tags.find(t => t.id === item.tagId )} /> },

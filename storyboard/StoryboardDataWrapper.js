@@ -39,6 +39,21 @@ const defaultTags = [
     id: 2,
     color: 'green',
     name: 'Sega!'
+  },
+  {
+    id: 3,
+    color: 'red',
+    name: 'Super Nintendo!'
+  },
+  {
+    id: 4,
+    color: 'yellow',
+    name: 'Buuuuuurp!'
+  },
+  {
+    id: 5,
+    color: 'pink',
+    name: 'Inner peace'
   }
 ]
 
