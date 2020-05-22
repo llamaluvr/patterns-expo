@@ -73,7 +73,7 @@ function RoundButton({ icon, onPress }) {
 
 // the entire component
 // absolutely positioned over the event list so it can expand on top of it
-function TagAdder({ tags, onPressAddEvent }) {
+function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
   const [isTrayOpen, setIsTrayOpen] = useState(false);
   const theme = useThemeContext();
 
@@ -126,7 +126,7 @@ function TagAdder({ tags, onPressAddEvent }) {
             }
           />
           <RoundButton
-            onPress={() => {}}
+            onPress={isTrayOpen ? onPressAddTag : () => {}}
             icon={
               <Text style={{ fontSize: 30, color: theme.colors.darkText }}>
                 {isTrayOpen ? "+" : "🔍"}
@@ -139,4 +139,4 @@ function TagAdder({ tags, onPressAddEvent }) {
   );
 }
 
-export default TagAdder;
+export default TagDrawer;

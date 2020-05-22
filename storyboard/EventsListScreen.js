@@ -1,19 +1,22 @@
-import React from 'react';
-import { View, StatusBar } from 'react-native';
-import Constants from 'expo-constants';
-import { EventsList, TagAdder } from '../components';
-import { useThemeContext } from "../config/ThemeContext";
+import React from "react";
+import { View } from "react-native";
+import EventsList from "../components/events/EventsList";
+import TagDrawer from "../components/TagDrawer";
 
-export default function EventsListScreen({ tags, events, dispatch }) {
-  // this is not the best place for the status bar stuff, but I set the status bar padding here so it's here for now
-  const theme = useThemeContext();
-  const themeStatusBarStyle =
-    theme.colorScheme === 'light' ? 'dark-content' : 'light-content';
+export default function EventsListScreen({ tags, events, dispatch, navigation }) {
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.bg0, paddingTop: Constants.statusBarHeight }}>
-      <StatusBar barStyle={themeStatusBarStyle} />
-      <EventsList events={events} tags={tags} />
-      <TagAdder tags={tags} onPressAddEvent={tagId => dispatch({ type: 'addEvent', payload: { id: events.length, tagId, date: new Date() }})} />
+    <View style={{ flex: 1 }}>
+      <EventsList events={events} tags={tags} onPressEvent={event => navigation.navigate('EventDetail', { eventId: event.id })} />
+      <TagDrawer
+        tags={tags}
+        onPressAddEvent={(tagId) =>
+          dispatch({
+            type: "addEvent",
+            payload: { id: events.length, tagId, date: new Date() },
+          })
+        }
+        onPressAddTag={() => navigation.navigate('AddTag')}
+      />
     </View>
   );
 }
