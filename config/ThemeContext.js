@@ -16,6 +16,23 @@ const getTheme = (colorScheme) => {
         color: colors.darkText,
         fontWeight: 'normal',
       },
+      bold: {
+        fontSize: 16,
+        color: colors.darkText,
+        fontWeight: '500',
+      },
+    },
+    large: {
+      dark: {
+        fontSize: 22,
+        color: colors.darkText,
+        fontWeight: 'normal',
+      },
+      bold: {
+        fontSize: 22,
+        color: colors.darkText,
+        fontWeight: '500',
+      },
     },
   };
 

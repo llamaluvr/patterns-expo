@@ -80,6 +80,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "addEvent":
       return { ...state, events: state.events.concat([action.payload]) };
+    case "addTag":
+      return { ...state, tags: state.tags.concat([action.payload]) };
     default:
       throw new Error();
   }

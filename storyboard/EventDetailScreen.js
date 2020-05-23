@@ -3,12 +3,13 @@ import EventDetail from "../components/events/EventDetail";
 import NavWrapper from "../components/common/NavWrapper";
 
 export default function AddTagScreen({ tags, events, dispatch, navigation, route }) {
+  const selectedEvent = events.find(e => e.id === route.params.eventId);
   return (
-    <NavWrapper navigation={navigation}>
+    <NavWrapper navigation={navigation} title="Insights">
       <EventDetail
-        tags={tags}
+        tag={tags.find(t => t.id === selectedEvent.tagId)}
         events={events}
-        selectedEventId={route.params.eventId}
+        selectedEvent={selectedEvent}
       />
     </NavWrapper>
   );
