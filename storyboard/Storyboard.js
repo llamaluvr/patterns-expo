@@ -7,6 +7,7 @@ import { useThemeContext } from "../config/ThemeContext";
 import EventsListScreen from "./EventsListScreen";
 import AddTagScreen from "./AddTagScreen";
 import EventDetailScreen from "./EventDetailScreen";
+import LocationDetailScreen from "./LocationDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,17 @@ function Storyboard({ tags, events, dispatch }) {
           <Stack.Screen name="EventDetail">
             {({ navigation, route }) => (
               <EventDetailScreen
+                tags={tags}
+                events={events}
+                dispatch={dispatch}
+                navigation={navigation}
+                route={route}
+              />
+            )}
+          </Stack.Screen>
+          <Stack.Screen name="LocationDetail">
+            {({ navigation, route }) => (
+              <LocationDetailScreen
                 tags={tags}
                 events={events}
                 dispatch={dispatch}

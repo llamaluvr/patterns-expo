@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TouchableWithoutFeedback, ScrollView } from "react-native";
 import { DateTime } from 'luxon';
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useThemeContext } from "../../config/ThemeContext";
@@ -18,13 +18,13 @@ function IconButton({ icon, text, onPress }) {
   );
 }
 
-function EventDetail({ events, tag, selectedEvent }) {
+function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
   const { sizes, colors, textStyles } = useThemeContext();
 
   console.log(selectedEvent)
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.bg0 }}>
+    <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: colors.bg0 }}>
       <View
         style={{
           alignItems: "center",
@@ -73,12 +73,12 @@ function EventDetail({ events, tag, selectedEvent }) {
                 color={colors.darkText}
               />
             }
-            onPress={() => {}}
+            onPress={selectedEvent.address ? onPressLocation : () => {}}
             text={selectedEvent.address ? selectedEvent.address[0].name + '\n' + selectedEvent.address[0].city : '???'}
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
