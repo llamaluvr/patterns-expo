@@ -1,17 +1,26 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback, ScrollView } from "react-native";
-import { DateTime } from 'luxon';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Dimensions,
+} from "react-native";
+import { DateTime } from "luxon";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useThemeContext } from "../../config/ThemeContext";
+import BarGraph from "./BarGraph";
 
 function IconButton({ icon, text, onPress }) {
   const { sizes, colors, textStyles } = useThemeContext();
   return (
-    <View style={{ flex: 1, }}>
-      <TouchableWithoutFeedback onPress={onPress} >
+    <View style={{ flex: 1 }}>
+      <TouchableWithoutFeedback onPress={onPress}>
         <View style={{ alignItems: "center", justifyContent: "flex-start" }}>
           {icon}
-          <Text style={[textStyles.standard.dark, { textAlign: 'center'}]}>{text}</Text>
+          <Text style={[textStyles.standard.dark, { textAlign: "center" }]}>
+            {text}
+          </Text>
         </View>
       </TouchableWithoutFeedback>
     </View>
@@ -21,10 +30,12 @@ function IconButton({ icon, text, onPress }) {
 function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
   const { sizes, colors, textStyles } = useThemeContext();
 
-  console.log(selectedEvent)
+  console.log(selectedEvent);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: colors.bg0 }}>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, backgroundColor: colors.bg0 }}
+    >
       <View
         style={{
           alignItems: "center",
@@ -63,7 +74,9 @@ function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
               <AntDesign name="calendar" size={40} color={colors.darkText} />
             }
             onPress={() => {}}
-            text={DateTime.fromJSDate(selectedEvent.date).toFormat('MMM d, yyyy\nh:mm a')}
+            text={DateTime.fromJSDate(selectedEvent.date).toFormat(
+              "MMM d, yyyy\nh:mm a"
+            )}
           />
           <IconButton
             icon={
@@ -74,7 +87,23 @@ function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
               />
             }
             onPress={selectedEvent.address ? onPressLocation : () => {}}
-            text={selectedEvent.address ? selectedEvent.address[0].name + '\n' + selectedEvent.address[0].city : '???'}
+            text={
+              selectedEvent.address
+                ? selectedEvent.address[0].name +
+                  "\n" +
+                  selectedEvent.address[0].city
+                : "???"
+            }
+          />
+        </View>
+        <View style={{ marginTop: sizes.large, alignItems: "center" }}>
+          <BarGraph
+            tag={tag}
+            events={events.filter((e) => e.tagId === tag.id)}
+            height={300}
+            width={Dimensions.get("window").width - sizes.medium * 2}
+            numberOfDates={7}
+            endDate={new Date()}
           />
         </View>
       </View>
