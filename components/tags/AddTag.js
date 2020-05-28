@@ -57,7 +57,7 @@ function AddTag({ name, color, onChangeName, onChangeColor }) {
             justifyContent: "space-between",
           }}
         >
-          {["blue", "purple", "green", "yellow", "orange", "red"].map(
+          {[colors.tagBlue, colors.tagPurple, colors.tagGreen, colors.tagYellow, colors.tagOrange, colors.tagRed].map(
             (myColor) => (
               <ColorCircle
                 key={myColor}

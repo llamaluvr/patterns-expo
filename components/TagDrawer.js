@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TouchableWithoutFeedback, Dimensions } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Dimensions, Platform } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { chunk } from "lodash";
 import { useThemeContext } from "../config/ThemeContext";
 
@@ -20,7 +21,7 @@ function TagList({ tags, onPressAddEvent }) {
             style={{
               flexDirection: "row",
               width: "100%",
-              paddingTop: sizes.medium,
+              paddingTop: sizes.large,
               paddingBottom: sizes.medium,
               paddingHorizontal: sizes.medium,
               justifyContent: "flex-start",
@@ -86,21 +87,21 @@ function TagList({ tags, onPressAddEvent }) {
   );
 }
 
-function RoundButton({ icon, onPress }) {
-  const theme = useThemeContext();
+function RoundButton({ icon, onPress, style }) {
+  const { colors, sizes } = useThemeContext();
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View
-        style={{
-          height: 50,
-          width: 50,
-          borderRadius: 25,
-          borderColor: theme.colors.darkText,
-          borderWidth: 1,
+        style={[{
+          height: 60,
+          width: 60,
+          borderRadius: 30,
+          borderColor: colors.darkText,
+          backgroundColor: colors.bg0,
           alignItems: "center",
           justifyContent: "center",
-        }}
+        }, style]}
       >
         <View>{icon}</View>
       </View>
@@ -121,9 +122,7 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
         left: 0,
         right: 0,
         bottom: 0,
-        borderTopWidth: 1,
-        borderTopColor: colors.darkText,
-        backgroundColor: colors.bg0,
+        backgroundColor: colors.bg1,
       }}
     >
       <View
@@ -132,7 +131,7 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
           alignItems: "center",
           justifyContent: "center",
           paddingTop: isTrayOpen ? 0 : sizes.large,
-          paddingBottom: sizes.large,
+          paddingBottom: Platform.OS === 'ios' ? getBottomSpace() : sizes.large,
         }}
       >
         {isTrayOpen ? (
@@ -149,6 +148,7 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-evenly",
+            alignItems: 'center'
           }}
         >
           <RoundButton
@@ -168,6 +168,12 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
                 {isTrayOpen ? "x" : "+"}
               </Text>
             }
+            style={{
+              height: 70,
+              width: 70,
+              borderRadius: 35,
+              backgroundColor: colors.bg2
+            }}
           />
           <RoundButton
             onPress={isTrayOpen ? onPressAddTag : () => {}}

@@ -4,12 +4,32 @@ import { Platform } from "react-native";
 
 const getTheme = (colorScheme) => {
   const colors = {
-    bg0: colorScheme === "dark" ? "black" : "white",
+    bg0: colorScheme === "dark" ? "#37414A" : "#4B5962",
+    bg1: colorScheme === "dark" ? "#4B5962" : "white",
+    bg2: colorScheme === "dark" ? "#61737F" : "gray",
     darkText: colorScheme === "dark" ? "white" : "black",
-    lightText: colorScheme === "dark" ? "black" : "white",
+    lightText: colorScheme === "dark" ? "#79858F" : "white",
+    tagBlue: '#0084C9',
+    tagPurple: '#AD4E9A',
+    tagGreen: '#00B458',
+    tagYellow: '#FFD300',
+    tagOrange: '#FF920A',
+    tagRed: '#FF581A',
   };
 
   const textStyles = {
+    small: {
+      dark: {
+        fontSize: 13,
+        color: colors.darkText,
+        fontWeight: 'normal',
+      },
+      bold: {
+        fontSize: 16,
+        color: colors.darkText,
+        fontWeight: '500',
+      },
+    },
     standard: {
       dark: {
         fontSize: 16,

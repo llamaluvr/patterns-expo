@@ -6,6 +6,15 @@ import ThemeProvider from "../config/ThemeContext";
 const notToday = new Date("2020-05-20T03:24:00");
 const alsoNotToday = new Date("2020-05-19T03:24:00");
 
+const colors = {
+  tagBlue: '#0084C9',
+    tagPurple: '#AD4E9A',
+    tagGreen: '#00B458',
+    tagYellow: '#FFD300',
+    tagOrange: '#FF920A',
+    tagRed: '#FF581A',
+}
+
 const defaultEvents = [
   {
     id: 0,
@@ -47,32 +56,32 @@ const defaultEvents = [
 const defaultTags = [
   {
     id: 0,
-    color: "blue",
+    color: colors.tagBlue,
     name: "Saw a spider",
   },
   {
     id: 1,
-    color: "orange",
+    color: colors.tagOrange,
     name: "Ate Doritos",
   },
   {
     id: 2,
-    color: "green",
+    color: colors.tagGreen,
     name: "Sega!",
   },
   {
     id: 3,
-    color: "red",
+    color: colors.tagRed,
     name: "Super Nintendo!",
   },
   {
     id: 4,
-    color: "yellow",
+    color: colors.tagYellow,
     name: "Buuuuuurp!",
   },
   {
     id: 5,
-    color: "pink",
+    color: colors.tagPurple,
     name: "Inner peace",
   },
 ];

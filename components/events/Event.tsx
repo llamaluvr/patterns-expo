@@ -16,31 +16,52 @@ export interface Props {
 }
 
 function Event({ event, tag, onPress }: Props) {
-  const theme = useThemeContext();
+  const { colors, textStyles, sizes } = useThemeContext();
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View
         style={{
-          padding: 15,
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        <Text style={theme.textStyles.standard.dark}>
-          {DateTime.fromJSDate(event.date).toLocaleString(DateTime.TIME_SIMPLE)}
-        </Text>
-        <View
-          style={{
-            height: 20,
-            width: 20,
-            borderRadius: 10,
-            backgroundColor: tag.color,
-            marginHorizontal: 10,
-          }}
-        />
-        <Text style={theme.textStyles.standard.dark}>{tag.name}</Text>
+        <View style={{ flex: 1 }}>
+          <Text
+            style={[
+              textStyles.standard.dark,
+              {
+                fontWeight: "500",
+                color: colors.lightText,
+                textAlign: "right",
+              },
+            ]}
+          >
+            {DateTime.fromJSDate(event.date).toLocaleString(
+              DateTime.TIME_SIMPLE
+            )}
+          </Text>
+        </View>
+        <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ backgroundColor: colors.bg2, width: 3, height: sizes.medium }} />
+          <View
+            style={{
+              height: 20,
+              width: 20,
+              borderRadius: 10,
+              borderWidth: 5,
+              borderColor: tag.color,
+              marginVertical: 3,
+              marginHorizontal: sizes.small,
+            }}
+          />
+          <View style={{ backgroundColor: colors.bg2, width: 3, height: sizes.medium }} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={[textStyles.standard.dark, { fontWeight: "500" }]}>
+            {tag.name}
+          </Text>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
