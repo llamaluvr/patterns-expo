@@ -123,7 +123,14 @@ function reducer(state, action) {
     case "addEvent":
       return { ...state, events: state.events.concat([action.payload]) };
     case "addTag":
-      return { ...state, tags: state.tags.concat([action.payload]) };
+      return {
+        ...state,
+        tags: state.tags.concat([action.payload]),
+        // add tag at the same time
+        events: state.events.concat([
+          { id: state.events.length, tagId: action.payload.id, date: new Date() },
+        ]),
+      };
     case "updateEvent":
       return {
         ...state,
@@ -157,7 +164,10 @@ function StoryboardDataWrapper() {
         data.events = [];
       } else {
         // deserialize dates
-        data.events = data.events.map(e => ({...e, date: new Date(e.date)}))
+        data.events = data.events.map((e) => ({
+          ...e,
+          date: new Date(e.date),
+        }));
       }
       dispatch({ type: "load", payload: data });
       setIsSaveReady(true);

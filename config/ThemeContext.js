@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useColorScheme } from 'react-native-appearance';
+import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { Platform } from "react-native";
 
 const getTheme = (colorScheme) => {
@@ -80,9 +80,12 @@ export function useThemeContext() {
  */
 export default function ThemeProvider({ children }) {
   const colorScheme = useColorScheme();
+
   return (
-    <ThemeContext.Provider value={getTheme(colorScheme)}>
-      {children}
-    </ThemeContext.Provider>
+    <AppearanceProvider>
+      <ThemeContext.Provider value={getTheme(colorScheme)}>
+        {children}
+      </ThemeContext.Provider>
+    </AppearanceProvider>
   );
 }

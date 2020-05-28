@@ -38,8 +38,10 @@ function AddTag({ name, color, onChangeName, onChangeColor }) {
           }}
         >
           <TextInput
+            autoFocus
             value={name}
             onChangeText={onChangeName}
+            autoCapitalize={'none'}
             style={[
               {
                 width: "100%",

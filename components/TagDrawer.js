@@ -17,7 +17,7 @@ function TagList({ tags, onPressAddEvent }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colors.bg1 }}>
       <Carousel
         data={tagChunks}
         renderItem={({ item /* tag chunk */ }) => (
@@ -75,7 +75,7 @@ function TagList({ tags, onPressAddEvent }) {
         <Pagination
           dotsLength={tagChunks.length}
           activeDotIndex={tagPageIndex}
-          containerStyle={{ backgroundColor: "rgba(0, 0, 0, 0.75)", paddingVertical: 0, paddingBottom: sizes.medium }}
+          containerStyle={{ backgroundColor: "transparent", paddingVertical: 0, paddingBottom: sizes.medium }}
           dotStyle={{
             width: 10,
             height: 10,
