@@ -1,4 +1,5 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect, useState } from "react";
+import { AsyncStorage } from "react-native";
 import * as Location from "expo-location";
 import Storyboard from "./Storyboard";
 import ThemeProvider from "../config/ThemeContext";
@@ -7,13 +8,13 @@ const notToday = new Date("2020-05-20T03:24:00");
 const alsoNotToday = new Date("2020-05-19T03:24:00");
 
 const colors = {
-  tagBlue: '#0084C9',
-    tagPurple: '#AD4E9A',
-    tagGreen: '#00B458',
-    tagYellow: '#FFD300',
-    tagOrange: '#FF920A',
-    tagRed: '#FF581A',
-}
+  tagBlue: "#0084C9",
+  tagPurple: "#AD4E9A",
+  tagGreen: "#00B458",
+  tagYellow: "#FFD300",
+  tagOrange: "#FF920A",
+  tagRed: "#FF581A",
+};
 
 const defaultEvents = [
   {
@@ -86,7 +87,7 @@ const defaultTags = [
   },
 ];
 
-// adds async functionality to any 
+// adds async functionality to any
 function dispatchMiddleware(dispatch) {
   return async (action) => {
     switch (action.type) {
@@ -101,7 +102,10 @@ function dispatchMiddleware(dispatch) {
         } else {
           location = await Location.getCurrentPositionAsync({});
           let address = await Location.reverseGeocodeAsync(location.coords);
-          const newAction = { type: 'updateEvent', payload: { id: action.payload.id, location, address }};
+          const newAction = {
+            type: "updateEvent",
+            payload: { id: action.payload.id, location, address },
+          };
           dispatch(newAction);
         }
         break;
@@ -114,6 +118,8 @@ function dispatchMiddleware(dispatch) {
 // only includes actual modifications to state
 function reducer(state, action) {
   switch (action.type) {
+    case "load":
+      return { ...state, ...action.payload };
     case "addEvent":
       return { ...state, events: state.events.concat([action.payload]) };
     case "addTag":
@@ -133,9 +139,39 @@ function reducer(state, action) {
 
 function StoryboardDataWrapper() {
   const [state, dispatch] = useReducer(reducer, {
-    events: defaultEvents,
-    tags: defaultTags,
+    events: [],
+    tags: [],
   });
+
+  const [isSaveReady, setIsSaveReady] = useState(false);
+
+  useEffect(() => {
+    (async function() {
+      const data = {};
+      data.tags = JSON.parse(await AsyncStorage.getItem("tags"));
+      data.events = JSON.parse(await AsyncStorage.getItem("events"));
+      if (!data.tags) {
+        data.tags = [];
+      }
+      if (!data.events) {
+        data.events = [];
+      } else {
+        // deserialize dates
+        data.events = data.events.map(e => ({...e, date: new Date(e.date)}))
+      }
+      dispatch({ type: "load", payload: data });
+      setIsSaveReady(true);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (isSaveReady) {
+      (async function() {
+        AsyncStorage.setItem("events", JSON.stringify(state.events));
+        AsyncStorage.setItem("tags", JSON.stringify(state.tags));
+      })();
+    }
+  }, [state, isSaveReady]);
 
   return (
     <ThemeProvider>

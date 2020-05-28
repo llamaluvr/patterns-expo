@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableWithoutFeedback, Dimensions, Platform } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import { AntDesign } from '@expo/vector-icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper'
 import { chunk } from "lodash";
 import { useThemeContext } from "../config/ThemeContext";
@@ -10,7 +11,10 @@ function TagList({ tags, onPressAddEvent }) {
   const { sizes, textStyles, colors } = useThemeContext();
   const [tagPageIndex, setTagPageIndex] = useState(0);
 
-  const tagChunks = chunk(tags, 6);
+  let tagChunks = chunk(tags, 6);
+  if (tagChunks.length === 0) {
+    tagChunks = [[]];
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -87,7 +91,7 @@ function TagList({ tags, onPressAddEvent }) {
   );
 }
 
-function RoundButton({ icon, onPress, style }) {
+function RoundButton({ icon, onPress, style, iconStyle }) {
   const { colors, sizes } = useThemeContext();
 
   return (
@@ -103,7 +107,7 @@ function RoundButton({ icon, onPress, style }) {
           justifyContent: "center",
         }, style]}
       >
-        <View>{icon}</View>
+        <View style={[{ alignItems: 'center', justifyContent: 'center'}, iconStyle ]}>{icon}</View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -154,19 +158,16 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
           <RoundButton
             onPress={() => {}}
             icon={
-              <Text style={{ fontSize: 30, color: colors.darkText }}>
-                {isTrayOpen ? "✎" : "⚙"}
-              </Text>
+              <AntDesign name={isTrayOpen ? 'edit' : 'setting'} size={35} color={colors.darkText} />
             }
+            iconStyle={{ marginBottom: -3}}
           />
           <RoundButton
             onPress={() => {
               setIsTrayOpen(!isTrayOpen);
             }}
             icon={
-              <Text style={{ fontSize: 30, color: colors.darkText }}>
-                {isTrayOpen ? "x" : "+"}
-              </Text>
+              <AntDesign name={isTrayOpen ? 'close' : 'plus'} size={40} color={colors.darkText} />
             }
             style={{
               height: 70,
@@ -174,14 +175,14 @@ function TagDrawer({ tags, onPressAddEvent, onPressAddTag }) {
               borderRadius: 35,
               backgroundColor: colors.bg2
             }}
+            iconStyle={{ marginBottom: -3}}
           />
           <RoundButton
             onPress={isTrayOpen ? onPressAddTag : () => {}}
             icon={
-              <Text style={{ fontSize: 30, color: colors.darkText }}>
-                {isTrayOpen ? "+" : "🔍"}
-              </Text>
+              <AntDesign name={isTrayOpen ? 'plus' : 'search1'} size={35} color={colors.darkText} />
             }
+            iconStyle={{ marginBottom: -3}}
           />
         </View>
       </View>

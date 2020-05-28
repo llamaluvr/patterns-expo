@@ -40,7 +40,7 @@ function EventsList({ events, tags, onPressEvent }) {
                   { fontWeight: "bold", color: colors.lightText, flex: 1 },
                 ]}
               >
-                {`${DateTime.fromISO(section.title)
+                {`  ${DateTime.fromISO(section.title)
                   .toFormat("MMM d, yyyy")
                   .toUpperCase()} `}
                 <Text style={{ fontWeight: "bold", color: colors.darkText }}>
