@@ -53,7 +53,7 @@ function LocationDetail({ event, tag, events }) {
         <TagCircle tag={tag} size={30} border />
       </Marker>
       {distinctLocations
-        .filter((e) => e.address !== null)
+        .filter((e) => e.location)
         .map((event) => (
           <Marker key={event.id} coordinate={event.location.coords}>
             <TagCircle tag={tag} size={20} />
