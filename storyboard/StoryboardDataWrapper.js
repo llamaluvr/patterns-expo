@@ -127,6 +127,7 @@ function reducer(state, action) {
         ...state,
         tags: state.tags.concat([action.payload]),
         // add tag at the same time
+        // whoops... doesn't grab location
         events: state.events.concat([
           { id: state.events.length, tagId: action.payload.id, date: new Date() },
         ]),
