@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useThemeContext } from "../../config/ThemeContext";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function NavWrapper({
   navigation,
@@ -35,7 +36,7 @@ export default function NavWrapper({
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <View>
-            <Text style={[theme.textStyles.large.dark]}>{`<`}</Text>
+            <AntDesign name="arrowleft" size={25} color={theme.colors.darkText} />
           </View>
         </TouchableOpacity>
         {rightButton ? (
