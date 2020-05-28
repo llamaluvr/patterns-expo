@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { DateTime } from "luxon";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useThemeContext } from "../../config/ThemeContext";
 import BarGraph from "./BarGraph";
 
@@ -27,8 +28,9 @@ function IconButton({ icon, text, onPress }) {
   );
 }
 
-function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
+function EventDetail({ events, tag, selectedEvent, onPressLocation, onUpdateDate }) {
   const { sizes, colors, textStyles } = useThemeContext();
+  const [ isDatePickerVisible, setIsDatePickerVisible ] = useState(false);
 
   console.log(selectedEvent);
 
@@ -73,10 +75,17 @@ function EventDetail({ events, tag, selectedEvent, onPressLocation }) {
             icon={
               <AntDesign name="calendar" size={40} color={colors.darkText} />
             }
-            onPress={() => {}}
+            onPress={() => { setIsDatePickerVisible(true)}}
             text={DateTime.fromJSDate(selectedEvent.date).toFormat(
               "MMM d, yyyy\nh:mm a"
             )}
+          />
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="datetime"
+            date={selectedEvent.date}
+            onConfirm={date => { onUpdateDate(date); setIsDatePickerVisible(false) }}
+            onCancel={() => setIsDatePickerVisible(false)}
           />
           <IconButton
             icon={

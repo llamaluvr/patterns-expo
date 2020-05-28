@@ -11,6 +11,7 @@ export default function AddTagScreen({ tags, events, dispatch, navigation, route
         events={events}
         selectedEvent={selectedEvent}
         onPressLocation={() => navigation.navigate('LocationDetail', { eventId: route.params.eventId })}
+        onUpdateDate={date => { dispatch({ type: 'updateEvent', payload: { id: selectedEvent.id, date}})}}
       />
     </NavWrapper>
   );
